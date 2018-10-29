@@ -51,30 +51,30 @@ void* MyMalloc(size_t size)
 void MyFree(void *ptr)
 {
     char *block = (char *)ptr;
-    int blcksize;
-    char *nxtblck = head;
+    int blocksize;
+    char *nxtblock = head;
     char findflg = 'N';
-    char *backblck;
+    char *backblock;
 
-    while((nxtblck != block )){
-        blcksize = *(int *)(nxtblck+1);
+    while((nxtblock != block )){
+        blocksize = *(int *)(nxtblock+1);
 
-        if(*nxtblck == endFlg){
+        if(*nxtblock == endFlg){
             printf("invalid address");
             break;
         }
-        backblck = nxtblck;
-        nxtblck = nxtblck + blcksize;
+        backblock = nxtblock;
+        nxtblock = nxtblock + blocksize;
 
     }
-    if(*nxtblck != endFlg){
-        *nxtblck = freeFlg;
+    if(*nxtblock != endFlg){
+        *nxtblock = freeFlg;
 
         int num = *(int *)(nxtblck+1);
-        char *isNxtblockFree = nxtblck + num;
+        char *isNxtblockFree = nxtblock + num;
 
        if(*isNxtblockFree == freeFlg){     //check wheter next blog is free and merge it
-            *(int *)(nxtblck+1) = *(int *)(nxtblck+1)+  *(int *)(isNxtblockFree+1);
+            *(int *)(nxtblock+1) = *(int *)(nxtblock+1)+  *(int *)(isNxtblockFree+1);
        }
        if(*backblck == freeFlg){     //check wheter prvious blog is free and merge it
             *(int *)(backblck+1) = *(int *)(backblck+1)+  *(int *)(nxtblck+1);
